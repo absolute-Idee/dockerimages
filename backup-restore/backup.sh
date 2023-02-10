@@ -5,7 +5,7 @@ date1=$(date +%Y%m%d-%H%M)
 mkdir pg-backup
 PGPASSWORD=$POSTGRES_PASSWORD
 pg_dumpall -h postgres-postgresql.postgres.svc.cluster.local -p 5432 -U app1 > pg-backup/postgres-db.tar
-echo "dump done"
+echo "dump gdone"
 
 #archivation
 file_name="pg-backup-"$date1".tar.gz"

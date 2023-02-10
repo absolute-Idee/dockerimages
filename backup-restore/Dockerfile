@@ -15,13 +15,19 @@ RUN apt install wget -y
 
 ARG TZ=Europe/Moscow
 ARG DEBIAN_FRONTEND=noninteractive
-RUN apt-get -y install postgresql 
+
+RUN apt-get install -y gnupg2
+RUN sh -c 'echo "deb http://apt.postgresql.org/pub/repos/apt focal-pgdg main" > /etc/apt/sources.list.d/pgdg.list'
+RUN apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7FCC7D46ACCC4CF8
+
+RUN apt update && apt upgrade -y
+
+RUN apt -y install postgresql-15
 RUN service postgresql start
 
 EXPOSE 5432
 CMD ["postgres"]
 
-#Make sure that your shell script file is in the same folder as your dockerfile while running the docker build command as the below command will copy the file to the /home/root/ folder for execution. 
 COPY . /home/root/ 
 #Copying script file
 USER root 
